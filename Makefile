@@ -1,21 +1,26 @@
-CC = gcc
-CFLAGS = -Wall -Werror -Wextra -pedantic
-SRC = $(wildcard *.c)
-OBJ = $(SRC:.c=.o)
-NAME = hsh
+CC=gcc
+CFLAGS=-Wall -Werror -Wextra -pedantic -std=gnu89 -g
+NAME=hsh
+OBJ=$(patsubst %.c,%.o, $(wildcard *.c))
+LINTER=betty
+%.o: %.c
+	$(CC) -c $< $(CFLAGS)
 
-.PHONY: all clean oclean flcean re
+all: $(NAME)
 
-all: hsh.h $(OBJ)
-	$(CC) $(OBJ) -o $(NAME)
+$(NAME): $(OBJ)
+	$(CC) -o $@ $^ $(CFLAGS)
+
+.PHONY: clean, run, check, memcheck
 
 clean:
-	$(RM) *~ $(NAME)
+	rm -f *.o $(NAME)
 
-oclean:
-	$(RM) $(OBJ)
+run: all
+	@./$(NAME)
 
-fclean: clean oclean
+check:
+	$(LINTER) *.c *.h
 
-re: oclean all
-
+memcheck: all
+	valgrind ./$(NAME)
