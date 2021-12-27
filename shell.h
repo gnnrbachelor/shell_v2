@@ -52,10 +52,17 @@ int builtins(arg_node *args);
 int changedir(arg_node *args);
 int penv(arg_node *args);
 int callexit(arg_node *args);
-int _strcmp(char *s1, char *s2);
 ssize_t count_cmds(char *line);
 
 
+/* Strings */
 
+size_t _strlen(char *str);
+char *_strdup(const char *str);
+char *_strcat(char *dest, char *src);
+char *_strchr(char *s, char c);
+int _atoi(char *s);
+int _strcmp(char *s1, char *s2);
+int _strncmp(const char *s1, const char *s2, size_t n);
 
 #endif
