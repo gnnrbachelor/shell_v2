@@ -39,10 +39,10 @@ size_t list_size(const list *head)
 {
 	size_t i = 0;
 
-	while (h)
+	while (head)
 	{
 		i++;
-		h = h->next;
+		head = head->next;
 	}
 	return (i);
 }
@@ -55,16 +55,16 @@ size_t list_size(const list *head)
 
 void free_list(list *head)
 {
-	list cur = head;
-	list next = NULL;
+	list *cur = head;
+	list *next = NULL;
 
 	if (head == NULL)
 		return;
-	while (curr->next != NULL)
+	while (cur->next != NULL)
 	{
-		free(curr->str);
-		next = curr->next;
-		free(curr);
+		free(cur->str);
+		next = cur->next;
+		free(cur);
 		cur = next;
 	}
 }
