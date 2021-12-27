@@ -68,3 +68,22 @@ void free_list(list *head)
 		cur = next;
 	}
 }
+
+/**
+ * arr_to_link - Converts array to list
+ * Return: pointer to head
+ */
+
+list *arr_to_link(void)
+{
+	int i = 0;
+	list *head = NULL;
+
+	while (environ[i])
+	{
+		add_node_end(&head, environ[i]);
+		i++;
+	}
+	return (head);
+}
+

@@ -51,8 +51,8 @@ void shell(arg_node *args);
 int builtins(arg_node *args);
 int changedir(arg_node *args);
 int penv(arg_node *args);
-int callexit(arg_node *args);
 ssize_t count_cmds(char *line);
+int exit_this(arg_node *args);
 
 
 /* Strings */

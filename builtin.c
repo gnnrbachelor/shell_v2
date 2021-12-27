@@ -1,9 +1,9 @@
 #include "shell.h"
 
 /**
- *
- *
- *
+ * builtins - Selects builtin
+ * @args: args
+ * Return: 0
  */
 
 int builtins(arg_node *args)
@@ -12,7 +12,7 @@ int builtins(arg_node *args)
 	built_ins func_arr[] = {
 		{"cd", changedir},
 		{"env", penv},
-		{"exit", callexit},
+		{"exit", exit_this},
 		{NULL, NULL}
 	};
 
@@ -21,6 +21,7 @@ int builtins(arg_node *args)
 			return (func_arr[i].f(args));
 	return (0);
 }
+
 
 int changedir(arg_node *args)
 {
@@ -35,10 +36,24 @@ int penv(arg_node *args)
 	return (0);
 }
 
-int callexit(arg_node *args)
+int exit_this(arg_node *args)
 {
-	(void) args;
-	return (0);
+	int exit_num = 0;
+
+	if (args->token_array[1])
+	{
+		exit_num = _atoi(args->token_array[1]);
+		if (exit_num == -1)
+		{
+			printf("Error\n");
+			return (1);
+		}
+	}
+	else
+		exit_num = args->exit_status;
+	free(*args->token_array);
+	free(args->token_array);
+	exit(exit_num);
 }
 
 
