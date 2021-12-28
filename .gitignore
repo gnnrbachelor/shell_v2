@@ -1,4 +1,9 @@
 /tests
-.swp
-.out
-.o
+*.swp
+*.out
+
+*.o
+*.ko
+*.obj
+*.elf
+
