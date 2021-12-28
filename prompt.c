@@ -7,7 +7,7 @@ void init_arg_node(arg_node *args, const int ac, char **av)
 	args->av = av;
 	args->exitchr = '\0';
 	args->token_array = NULL;
-	args->head = NULL;
+	args->env = arr_to_link();
 	args->exit_status = 0;
 }
 
@@ -44,7 +44,34 @@ void shell(arg_node *args)
 			continue;
 
 		args->token_array = tokenize(line);
+		if (!args->token_array)
+			continue;
+
 		builtins(args);
-		free(args->token_array);
+		free_it_all(args, 'L');;
 	}
+}
+
+void free_it_all(arg_node *args, char mode)
+{
+	list *temp;
+
+	if (mode == 'L')
+	{
+		free(args->token_array);
+		return;
+	}
+
+	if (args->token_array)
+		free(*args->token_array);
+	free(args->token_array);
+	args->token_array = NULL;
+	while (args->env)
+	{
+		temp = args->env;
+		args->env = args->env->next;
+		free(temp->str);
+		free(temp);
+	}
+	args->env = NULL;
 }

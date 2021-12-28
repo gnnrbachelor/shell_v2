@@ -11,7 +11,7 @@ int builtins(arg_node *args)
 	size_t i;
 	built_ins func_arr[] = {
 		{"cd", changedir},
-		{"env", penv},
+		{"env", print_env},
 		{"exit", exit_this},
 		{NULL, NULL}
 	};
@@ -30,11 +30,25 @@ int changedir(arg_node *args)
 	return (0);
 }
 
-int penv(arg_node *args)
+
+/**
+ * print_env - Prints environment
+ * @args: Args
+ * Return: 0 if success
+ */
+
+int print_env(arg_node *args)
 {
-	(void) args;
+	list *temp = args->env;
+
+	while (temp)
+	{
+		printf("%s\n", temp->str);
+		temp = temp->next;
+	}
 	return (0);
 }
+
 
 int exit_this(arg_node *args)
 {

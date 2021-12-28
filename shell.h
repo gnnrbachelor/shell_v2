@@ -30,7 +30,7 @@ typedef struct arg_node {
 	char **av;
 	char exitchr;
 	char **token_array;
-	list *head;
+	list *env;
 	int exit_status;
 
 } arg_node;
@@ -50,9 +50,12 @@ void prompt(arg_node *args);
 void shell(arg_node *args);
 int builtins(arg_node *args);
 int changedir(arg_node *args);
-int penv(arg_node *args);
 ssize_t count_cmds(char *line);
 int exit_this(arg_node *args);
+int print_env(arg_node *args);
+void free_it_all(arg_node *args, char mode);
+list *arr_to_link(void);
+
 
 
 /* Strings */

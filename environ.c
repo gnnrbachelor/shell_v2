@@ -11,7 +11,7 @@
 char *_getenv(char *command, arg_node *args)
 {
 	size_t l = _strlen(command);
-	list *head = args->head;
+	list *head = args->env;
 
 	while (head)
 	{
@@ -24,3 +24,4 @@ char *_getenv(char *command, arg_node *args)
 	}
 	return (NULL);
 }
+

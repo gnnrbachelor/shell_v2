@@ -1,10 +1,9 @@
+SHELL=/bin/bash
 CC=gcc
 CFLAGS=-Wall -Werror -Wextra -pedantic -std=gnu89 -g
 NAME=hsh
 OBJ=$(patsubst %.c,%.o, $(wildcard *.c))
 LINTER=betty
-%.o: %.c
-	$(CC) -c $< $(CFLAGS)
 
 all: $(NAME)
 
