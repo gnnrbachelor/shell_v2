@@ -59,9 +59,6 @@ void shell(arg_node *args)
 			free(line);
 			return;
 		}
-		if (*line == '\n')
-			continue;
-
 		args->token_array = tokenize(line);
 		if (!args->token_array)
 			continue;

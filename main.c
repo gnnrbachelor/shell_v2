@@ -14,6 +14,7 @@ int main(int ac, char *av[])
 
 	init_arg_node(&args, ac, av);
 	shell(&args);
+	free_it_all(&args, '\0');
 	return (EXIT_SUCCESS);
 
 }

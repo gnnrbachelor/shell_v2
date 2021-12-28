@@ -24,6 +24,11 @@ char **tokenize(char *line)
 		token = strtok(NULL, " \t\n");
 	}
 	arr[i] = NULL;
+	if (!i)
+	{
+		free(arr);
+		arr = NULL;
+	}
 	return (arr);
 }
 

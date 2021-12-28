@@ -10,22 +10,19 @@
 list *add_node_end(list **head, const char *str)
 {
 	list *n_node = NULL;
-	list *temp = *head;
+	list **temp = NULL;
 
 	n_node = malloc(sizeof(list));
 	if (!n_node)
 		return (NULL);
 	n_node->str = _strdup(str);
 	n_node->next = NULL;
-	if (!head)
-	{
-		*head = n_node;
-		return (*head);
-	}
+	temp = head;
+	while (*temp)
+		temp = &(*temp)->next;
+	n_node->next = *temp;
+	*temp = n_node;
 
-	while (temp->next)
-		temp = temp->next;
-	temp->next = n_node;
 	return (n_node);
 }
 
