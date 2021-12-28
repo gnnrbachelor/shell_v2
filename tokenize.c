@@ -57,3 +57,32 @@ ssize_t count_cmds(char *line)
 	}
 	return (count);
 }
+
+/**
+ * parse_cd_tok - Parses for cd
+ * @args: Args
+ * Return: 1 or 0
+ */
+
+int parse_cd_tok(arg_node *args)
+{
+	int val = 0;
+	char *home = _getenv("HOME=", args);
+	char *old = _getenv("OLDPWD=", args);
+	char *temp = NULL;
+
+	if (args->token_array[1] == NULL && home)
+		val = chdir(home);
+	else if (*args->token_array[1] == '-' && old)
+	{
+		val = chdir(old);
+		temp = getcwd(temp, 0);
+		printf("%s\n", temp);
+		free(temp);
+	}
+	else if (args->token_array[1] && *args->token_array[1] != '-')
+		val = chdir(args->token_array[1]);
+	return (val);
+}
+
+

@@ -79,6 +79,10 @@ int exit_this(arg_node *args);
 int print_env(arg_node *args);
 void free_it_all(arg_node *args, char mode);
 list *arr_to_link(void);
+int parse_cd_tok(arg_node *args);
+void set_env_var(list **env, char *name, char *value);
+char *_getenv(char *command, arg_node *args);
+
 
 
 

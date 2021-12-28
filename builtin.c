@@ -30,9 +30,21 @@ int builtins(arg_node *args)
 
 int changedir(arg_node *args)
 {
-	(void) args;
+	char *cur = NULL;
+	char *next = NULL;
 
-	return (0);
+	cur = getcwd(cur, 0);
+	if (parse_cd_tok(args) == -1)
+	{
+		errno = 0;
+		perror("called in changedir");
+	}
+	next = getcwd(next, 0);
+	set_env_var(&(args->env), "OLDPWD", cur);
+	set_env_var(&(args->env), "PWD", next);
+	free(next);
+	free(cur);
+	return (1);
 }
 
 
