@@ -19,22 +19,46 @@
 
 extern char **environ;
 
+/**
+ * struct list - Linked list
+ * @str: String
+ * @next: Next node
+ *
+ * Description: Linked list
+ */
+
 typedef struct list
 {
 	char *str;
 	struct list *next;
 } list;
 
-typedef struct arg_node {
+
+/**
+ * struct arg_node - Arg node
+ * @ac: Int
+ * @av: av
+ * @exitchr: exit n
+ * @token_array: Token array
+ * @env: envir
+ * @exit_status: exit status
+ */
+
+typedef struct arg_node
+{
 	int ac;
 	char **av;
 	char exitchr;
 	char **token_array;
 	list *env;
 	int exit_status;
-
 } arg_node;
 
+/**
+ * struct built_ins - Builtins
+ * @bi: name
+ * @f: function pointer
+ */
 
 typedef struct built_ins
 {
