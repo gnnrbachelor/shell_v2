@@ -1,5 +1,11 @@
 #include "shell.h"
 
+/**
+ * tokenize - Tokenizes
+ * @line: Line
+ * Return: pointer to arr
+ */
+
 char **tokenize(char *line)
 {
 	char *token;
@@ -20,6 +26,13 @@ char **tokenize(char *line)
 	arr[i] = NULL;
 	return (arr);
 }
+
+/**
+ * count_cmds - Counts commands
+ * @line: line
+ * Return: count
+ *
+ */
 
 ssize_t count_cmds(char *line)
 {

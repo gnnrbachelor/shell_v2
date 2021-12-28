@@ -2,9 +2,9 @@
 
 /**
  * _getenv - Gets environment
- * @env_var: environment variable
+ * @command: environment variable
  * @args: Argument node
- * Return: environment var
+ * Return: environment
  *
  */
 

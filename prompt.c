@@ -1,5 +1,12 @@
 #include "shell.h"
 
+/**
+ * init_arg_node - Inits arg node
+ * @args: Arg node
+ * @ac: Arg count
+ * @av: Args
+ * Return: Void
+ */
 
 void init_arg_node(arg_node *args, const int ac, char **av)
 {
@@ -11,6 +18,12 @@ void init_arg_node(arg_node *args, const int ac, char **av)
 	args->exit_status = 0;
 }
 
+/**
+ * prompt - Prompt
+ * @args: args
+ * Return: Void
+ */
+
 void prompt(arg_node *args)
 {
 	(void)args;
@@ -21,6 +34,12 @@ void prompt(arg_node *args)
 		args->exitchr = '\n';
 	}
 }
+
+/**
+ * shell - Primary action
+ * @args: Args
+ * Return: Void
+ */
 
 
 void shell(arg_node *args)
@@ -48,9 +67,15 @@ void shell(arg_node *args)
 			continue;
 
 		builtins(args);
-		free_it_all(args, 'L');;
+		free_it_all(args, 'L');
 	}
 }
+
+/**
+ * free_it_all - Frees env linked
+ * @args: args
+ * @mode: mode
+ */
 
 void free_it_all(arg_node *args, char mode)
 {

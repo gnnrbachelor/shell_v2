@@ -22,6 +22,7 @@ char *_strcat(char *dest, char *src)
  * _strncmp - Compares two strings at n bytes
  * @s1: String 1
  * @s2: String 2
+ * @n: n
  * Return: Diff
  *
  */

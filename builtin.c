@@ -22,6 +22,11 @@ int builtins(arg_node *args)
 	return (0);
 }
 
+/**
+ * changedir - cd command
+ * @args: args
+ * Return: 0;
+ */
 
 int changedir(arg_node *args)
 {
@@ -49,6 +54,12 @@ int print_env(arg_node *args)
 	return (0);
 }
 
+/**
+ * exit_this - Exits
+ * @args: args
+ * Return: 0
+ *
+ */
 
 int exit_this(arg_node *args)
 {
