@@ -63,8 +63,10 @@ void shell(arg_node *args)
 		if (!args->token_array)
 			continue;
 
-		builtins(args);
+		if (builtins(args) == 2)
+			printf("Call fork\n");
 		free_it_all(args, 'L');
+		++args->cmd_count;
 	}
 }
 

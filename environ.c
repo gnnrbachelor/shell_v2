@@ -35,8 +35,6 @@ int _unsetenv(arg_node *args)
 {
 	list *temp = NULL;
 	list *prev = NULL;
-	char *p;
-	size_t l;
 
 	if (!args->token_array[1])
 	{
@@ -44,12 +42,9 @@ int _unsetenv(arg_node *args)
 		return (1);
 	}
 	temp = args->env;
-	l = _strlen(args->token_array[1]);
 	while (temp)
 	{
-		p = _strchr(temp->str, '=');
-		if (l == (size_t) (p - temp->str) &&
-		   !(_strncmp(temp->str, args->token_array[1], l)))
+		if (find_env_var(NULL, temp, args))
 		{
 			if (prev)
 				prev->next = temp->next;
@@ -96,17 +91,13 @@ void set_env_var(list **env, char *name, char *value)
 {
 	list *temp = NULL;
 	list *prev = NULL;
-	char *p = NULL;
 	char buf[PATH_MAX] = {0};
-	size_t l;
 
-	temp = prev = *env;
-	l = _strlen(name);
+	temp = *env;
 
 	while (temp)
 	{
-		p = _strchr(temp->str, '=');
-		if (l == (size_t ) (p - temp->str) && !(_strncmp(temp->str, name, l)))
+		if (find_env_var(name, temp, NULL))
 			break;
 		prev = temp;
 		temp = temp->next;
@@ -123,9 +114,30 @@ void set_env_var(list **env, char *name, char *value)
 	}
 	if (prev)
 		prev->next = temp;
-	else
+	else if (!*env)
 		*env = temp;
 	temp->str = _strdup(buf);
+}
+
+/**
+ * find_env_var - Finds matching env var
+ * @s: String
+ * @s2: String2
+ * @args: args node
+ *
+ */
+
+size_t find_env_var(char *s, list *s2, arg_node *args)
+{
+	char *p = NULL;
+	size_t l;
+
+	if (!s)
+		s = args->token_array[1];
+	l = _strlen(s);
+	p = _strchr(s2->str, '=');
+	return ((l == (size_t) (p - s2->str) &&
+			!(_strncmp(s2->str, s, l))));
 }
 
 

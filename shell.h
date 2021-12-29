@@ -52,6 +52,7 @@ typedef struct arg_node
 	char **token_array;
 	list *env;
 	int exit_status;
+	size_t cmd_count;
 } arg_node;
 
 /**
@@ -82,7 +83,9 @@ list *arr_to_link(void);
 int parse_cd_tok(arg_node *args);
 void set_env_var(list **env, char *name, char *value);
 char *_getenv(char *command, arg_node *args);
-
+int _unsetenv(arg_node *args);
+int _setenv(arg_node *args);
+size_t find_env_var(char *s, list *s2, arg_node *args);
 
 
 

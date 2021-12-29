@@ -71,18 +71,20 @@ int parse_cd_tok(arg_node *args)
 	char *old = _getenv("OLDPWD=", args);
 	char *temp = NULL;
 
-	if (args->token_array[1] == NULL && home)
-		val = chdir(home);
-	else if (*args->token_array[1] == '-' && old)
+	if (args->token_array[1] == NULL)
 	{
-		val = chdir(old);
+		if (home)
+			val = chdir(home);
+	}
+	else if (*args->token_array[1] == '-')
+	{
+		if (old)
+			val = chdir(old);
 		temp = getcwd(temp, 0);
 		printf("%s\n", temp);
 		free(temp);
 	}
-	else if (args->token_array[1] && *args->token_array[1] != '-')
+	else
 		val = chdir(args->token_array[1]);
 	return (val);
 }
-
-

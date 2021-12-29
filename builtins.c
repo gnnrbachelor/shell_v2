@@ -13,13 +13,15 @@ int builtins(arg_node *args)
 		{"cd", changedir},
 		{"env", print_env},
 		{"exit", exit_this},
+		{"setenv", _setenv},
+		{"unsetenv", _unsetenv},
 		{NULL, NULL}
 	};
 
 	for (i = 0; func_arr[i].bi; ++i)
 		if (!_strcmp(*args->token_array, func_arr[i].bi))
 			return (func_arr[i].f(args));
-	return (0);
+	return (2);
 }
 
 /**
