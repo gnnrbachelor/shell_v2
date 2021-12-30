@@ -17,7 +17,7 @@ char **tokenize(char *line)
 	arr = malloc(sizeof(*arr) * (count + 1));
 	if (!arr)
 		return (NULL);
-	token = strtok(line, "\t\n");
+	token = strtok(line, " \t\n");
 	for (; token; i++)
 	{
 		arr[i] = token;
