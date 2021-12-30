@@ -86,6 +86,10 @@ char *_getenv(char *command, arg_node *args);
 int _unsetenv(arg_node *args);
 int _setenv(arg_node *args);
 size_t find_env_var(char *s, list *s2, arg_node *args);
+void _fork(arg_node *args, char *exec);
+void make_proc(arg_node *args);
+char *get_path(arg_node *args);
+char *tokenize_path(char *str);
 
 
 
@@ -98,5 +102,6 @@ char *_strchr(char *s, char c);
 int _atoi(char *s);
 int _strcmp(char *s1, char *s2);
 int _strncmp(const char *s1, const char *s2, size_t n);
+char *_strncpy(char *dest, char *src, int n);
 
 #endif

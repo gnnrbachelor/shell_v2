@@ -64,7 +64,7 @@ void shell(arg_node *args)
 			continue;
 
 		if (builtins(args) == 2)
-			printf("Call fork\n");
+			make_proc(args);
 		free_it_all(args, 'L');
 		++args->cmd_count;
 	}
