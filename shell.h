@@ -17,6 +17,10 @@
 #include <time.h>
 #include <unistd.h>
 
+
+#define EXIT_ERROR 100
+#define CD_ERROR 101
+
 extern char **environ;
 
 /**
@@ -90,6 +94,8 @@ void _fork(arg_node *args, char *exec);
 void make_proc(arg_node *args);
 char *get_path(arg_node *args);
 char *tokenize_path(char *str);
+void error(arg_node *args);
+
 
 
 

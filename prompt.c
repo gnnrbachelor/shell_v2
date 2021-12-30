@@ -16,6 +16,7 @@ void init_arg_node(arg_node *args, const int ac, char **av)
 	args->token_array = NULL;
 	args->env = arr_to_link();
 	args->exit_status = 0;
+	args->cmd_count = 1;
 }
 
 /**
@@ -83,6 +84,7 @@ void free_it_all(arg_node *args, char mode)
 	if (mode == 'L')
 	{
 		free(args->token_array);
+		args->token_array = NULL;
 		return;
 	}
 

@@ -38,7 +38,7 @@ int changedir(arg_node *args)
 	cur = getcwd(cur, 0);
 	if (parse_cd_tok(args) == -1)
 	{
-		errno = 0;
+		errno = CD_ERROR;
 		perror("called in changedir");
 	}
 	next = getcwd(next, 0);
@@ -84,14 +84,14 @@ int exit_this(arg_node *args)
 		exit_num = _atoi(args->token_array[1]);
 		if (exit_num == -1)
 		{
-			printf("Error\n");
+			errno = EXIT_ERROR;
+			error(args);
 			return (1);
 		}
 	}
 	else
 		exit_num = args->exit_status;
-	free(*args->token_array);
-	free(args->token_array);
+	free_it_all(args, '\0');
 	exit(exit_num);
 }
 

@@ -15,7 +15,6 @@ void _fork(arg_node *args, char *exec)
 	pid = fork();
 	if (pid < 0)
 		perror("Problem forking");
-
 	else if (pid == 0)
 	{
 		if (execve(exec, args->token_array, NULL))
