@@ -11,21 +11,24 @@
 void _fork(arg_node *args, char *exec)
 {
 	pid_t pid = 0;
+	int wstatus;
 
 	pid = fork();
 	if (pid < 0)
-		perror("Problem forking");
+		error(args);
 	else if (pid == 0)
 	{
 		if (execve(exec, args->token_array, NULL))
 		{
-			perror("Execve error");
+			error(args);
 			exit(errno);
 		}
 	}
 	else
 	{
-		wait(NULL);
+		waitpid(-1, &wstatus, 0);
+		if (WIFEXITED(wstatus))
+			args->exit_status = WEXITSTATUS(wstatus);
 	}
 }
 
@@ -42,11 +45,11 @@ void make_proc(arg_node *args)
 	exec = !_strncmp(args->token_array[0], "./", 2) || **args->token_array == '/' ? args->token_array[0] : get_path(args);
 	if (!exec || access(exec, F_OK))
 	{
-		perror("No such file, code = 127");
+		error(args);
 	}
 	else if (access(exec, X_OK | R_OK))
 	{
-		perror("Permission denied");
+		error(args);
 	}
 	else
 		_fork(args, exec);
