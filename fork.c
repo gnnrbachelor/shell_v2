@@ -45,6 +45,7 @@ void make_proc(arg_node *args)
 	exec = !_strncmp(args->token_array[0], "./", 2) || **args->token_array == '/' ? args->token_array[0] : get_path(args);
 	if (!exec || access(exec, F_OK))
 	{
+		errno = ENOENT;
 		error(args);
 	}
 	else if (access(exec, X_OK | R_OK))
