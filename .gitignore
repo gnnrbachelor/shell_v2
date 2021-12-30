@@ -1,9 +1,12 @@
 /tests
 *.swp
 *.out
-
 *.o
 *.ko
 *.obj
 *.elf
+*.gch
+*.pch
+*.out
+hsh
 
