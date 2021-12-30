@@ -8,16 +8,17 @@
 
 void error(arg_node *args)
 {
-	fprintf(stderr, "%s: ", *args->av + 2);
+	fprintf(stderr, "%s: %lu ", *args->av, args->cmd_count);
 	if (errno == EXIT_ERROR)
 	{
-		fprintf(stderr, "%lu: %s: Illegal number: %s\n", args->cmd_count,
-				*args->token_array, args->token_array[1]);
+		fprintf(stderr, "%s: Illegal number: %s\n", *args->token_array, args->token_array[1]);
+		args->exit_status = 2;
 	}
 	else if (errno == CD_ERROR)
 	{
-		fprintf(stderr, "%lu: %s: can't cd to %s\n", args->cmd_count,
+		fprintf(stderr, "%s: can't cd to %s\n",
 				*args->token_array, args->token_array[1]);
+		args->exit_status = 2;
 	}
 	else if (errno == EACCES)
 	{

@@ -12,7 +12,7 @@ void init_arg_node(arg_node *args, const int ac, char **av)
 {
 	args->ac = ac;
 	args->av = av;
-	args->exitchr = '\0';
+	args->exitchr = "";
 	args->token_array = NULL;
 	args->env = arr_to_link();
 	args->exit_status = 0;
@@ -32,7 +32,7 @@ void prompt(arg_node *args)
 	if (isatty(STDIN_FILENO))
 	{
 		printf("hsh$ ");
-		args->exitchr = '\n';
+		args->exitchr = "\n";
 	}
 }
 
@@ -56,7 +56,7 @@ void shell(arg_node *args)
 
 		if (char_read == EOF)
 		{
-			printf("%c", args->exitchr);
+			printf("%s", args->exitchr);
 			free(line);
 			return;
 		}

@@ -52,7 +52,7 @@ typedef struct arg_node
 {
 	int ac;
 	char **av;
-	char exitchr;
+	char *exitchr;
 	char **token_array;
 	list *env;
 	int exit_status;
