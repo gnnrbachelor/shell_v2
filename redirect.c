@@ -39,7 +39,28 @@ void handle_redirect(arg_node *args, char *line, int *file_ds)
 }
 
 /**
- * quote_check
- *
- *
+ * quote_check - Parses for single quote
+ * @line: Line
+ * @i: counter
+ * @quote: Is quote b
+ * Return: 0;
  */
+
+char quote_check(char * line, size_t i, char *q)
+{
+	*q = line[i] == ''\' && (i == 0 || line[i - 1] != '\\') ?
+		*quote ^ 1 << 0 : *q;
+
+	*q = line[i] == '"' && (i == 0 || line[i - 1] != '\\') ?
+		*quote ^ 1 << 1 : *q;
+
+	return (*quote == 0);
+}
+
+
+
+
+
+
+
+
