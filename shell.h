@@ -98,6 +98,11 @@ void error(arg_node *args);
 void parse_op(arg_node *args, char *line);
 void execute_shell(arg_node *args, char *line);
 int _clear(arg_node *args);
+void print_syn_err(int *stat, char *err, size_t *i, int j);
+void handle_redirect(arg_node *args, char *line, int *file_ds);
+char quote_check(char * line, size_t i, char *q);
+int handle_syn_err(char *line);
+int step_parse(char *s, size_t *i);
 
 
 

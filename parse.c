@@ -21,7 +21,7 @@ void parse_op(arg_node *args, char *line)
 	for (i = 0; line[i]; ++i)
 	{
 		single_quote = line[i] == '\'' && (i == 0 || line[i - 1] != '\\') ? ~single_quote : single_quote;
-		double_quote = line[i] == '"' && (i == 0 || line[i - 1] != '\\') ? ~double_quote : single_quote;
+		double_quote = line[i] == '"' && (i == 0 || line[i - 1] != '\\') ? ~double_quote : double_quote;
 		if (!single_quote && !double_quote)
 		{
 			if (line[i] == '#' && (i == 0 || line[i - 1] == ' '))

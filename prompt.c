@@ -54,7 +54,7 @@ void shell(arg_node *args)
 		prompt(args);
 		char_read = getline(&line, &n, stdin);
 
-		if (char_read == EOF)
+		if (char_read == EOF || handle_syn_err(line))
 		{
 			printf("%s", args->exitchr);
 			free(line);
@@ -77,12 +77,30 @@ void shell(arg_node *args)
 
 void execute_shell(arg_node *args, char *line)
 {
+	int file_ds[3] = {-2, -2, STDOUT_FILENO};
+
+	handle_redirect(args, line, file_ds);
+	if (file_ds[0] != -2 && file_ds[1] != -2 && (file_ds[0] == -1 || file_ds[1] == -1 || dup2(file_ds[0], file_ds[2]) == -1))
+	{
+		if (file_ds[0] != -1)
+			close(file_ds[0]);
+		error(args);
+		free(line);
+		return;
+	}
+
 	args->token_array = tokenize(line);
 	if (!args->token_array)
 		return;
 	if (builtins(args) == 2)
 		make_proc(args);
 	free_it_all(args, 'L');
+	if (file_ds[0] != -2)
+	{
+		if (dup2(file_ds[1], 1) == -1)
+			error(args);
+		close(file_ds[0]);
+	}
 }
 
 
