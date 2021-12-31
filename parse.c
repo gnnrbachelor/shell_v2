@@ -10,8 +10,7 @@
 
 void parse_op(arg_node *args, char *line)
 {
-	char double_quote = 0;
-	char single_quote = 0;
+	char q = 0;
 	char op = 0;
 	size_t i = 0;
 	size_t pos = 0;
@@ -20,9 +19,7 @@ void parse_op(arg_node *args, char *line)
 	op = ';';
 	for (i = 0; line[i]; ++i)
 	{
-		single_quote = line[i] == '\'' && (i == 0 || line[i - 1] != '\\') ? ~single_quote : single_quote;
-		double_quote = line[i] == '"' && (i == 0 || line[i - 1] != '\\') ? ~double_quote : double_quote;
-		if (!single_quote && !double_quote)
+		if (quote_check(line, i, &q))
 		{
 			if (line[i] == '#' && (i == 0 || line[i - 1] == ' '))
 			{
