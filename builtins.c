@@ -15,6 +15,7 @@ int builtins(arg_node *args)
 		{"exit", exit_this},
 		{"setenv", _setenv},
 		{"unsetenv", _unsetenv},
+		{"clear", _clear},
 		{NULL, NULL}
 	};
 
@@ -23,6 +24,23 @@ int builtins(arg_node *args)
 			return (func_arr[i].f(args));
 	return (2);
 }
+
+/**
+ * clear_screen - Clear Screen
+ * @arg_node: Args
+ * Return: Void
+ */
+
+int _clear(arg_node *args)
+{
+	char *clr = "\033[2J";
+	char *move = "\033[1;1H";
+
+	(void) args;
+	printf("%s%s", move, clr);
+	return (0);
+}
+
 
 /**
  * changedir - cd command

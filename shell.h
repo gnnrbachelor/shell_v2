@@ -97,6 +97,8 @@ char *tokenize_path(char *str);
 void error(arg_node *args);
 void parse_op(arg_node *args, char *line);
 void execute_shell(arg_node *args, char *line);
+int _clear(arg_node *args);
+
 
 
 
