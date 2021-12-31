@@ -66,43 +66,6 @@ void shell(arg_node *args)
 }
 
 
-/**
- * parse_op - Parses operators
- * @arg_node *args
- * @line
- * Return: Void
- *
- */
-
-void parse_op(arg_node *args, char *line)
-{
-	char double_quote = 0;
-	char single_quote = 0;
-	size_t i, pos = 0;
-
-	for (i = 0; line[i]; ++i)
-	{
-		single_quote = line[i] == '\'' && (i == 0 || line[i - 1] != '\\') ? ~single_quote : single_quote;
-		double_quote = line[i] == '"' && (i == 0 || line[i - 1] != '\\') ? ~double_quote : single_quote;
-		if (!single_quote && !double_quote)
-		{
-			if (line[i] == '#' && (i == 0 || line[i - 1] == ' '))
-			{
-				line[i] = '\0';
-				execute_shell(args, line + pos);
-				return;
-			}
-			if (line[i] == ';')
-			{
-				line[i] = '\0';
-				execute_shell(args, line + pos);
-				pos = ++i;
-			}
-		}
-	}
-	execute_shell(args, line + pos);
-}
-
 
 /**
  * execute_shell - Execute Shell
