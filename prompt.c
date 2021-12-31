@@ -60,16 +60,68 @@ void shell(arg_node *args)
 			free(line);
 			return;
 		}
-		args->token_array = tokenize(line);
-		if (!args->token_array)
-			continue;
-
-		if (builtins(args) == 2)
-			make_proc(args);
-		free_it_all(args, 'L');
 		++args->cmd_count;
+		parse_op(args, line);
 	}
 }
+
+
+/**
+ * parse_op - Parses operators
+ * @arg_node *args
+ * @line
+ * Return: Void
+ *
+ */
+
+void parse_op(arg_node *args, char *line)
+{
+	char double_quote = 0;
+	char single_quote = 0;
+	size_t i, pos = 0;
+
+	for (i = 0; line[i]; ++i)
+	{
+		single_quote = line[i] == '\'' && (i == 0 || line[i - 1] != '\\') ? ~single_quote : single_quote;
+		double_quote = line[i] == '"' && (i == 0 || line[i - 1] != '\\') ? ~double_quote : single_quote;
+		if (!single_quote && !double_quote)
+		{
+			if (line[i] == '#' && (i == 0 || line[i - 1] == ' '))
+			{
+				line[i] = '\0';
+				execute_shell(args, line + pos);
+				return;
+			}
+			if (line[i] == ';')
+			{
+				line[i] = '\0';
+				execute_shell(args, line + pos);
+				pos = ++i;
+			}
+		}
+	}
+	execute_shell(args, line + pos);
+}
+
+
+/**
+ * execute_shell - Execute Shell
+ * @args: args
+ * @line: line
+ * Return: void
+ *
+ */
+
+void execute_shell(arg_node *args, char *line)
+{
+	args->token_array = tokenize(line);
+	if (!args->token_array)
+		return;
+	if (builtins(args) == 2)
+		make_proc(args);
+	free_it_all(args, 'L');
+}
+
 
 /**
  * free_it_all - Frees env linked
