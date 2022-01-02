@@ -92,7 +92,6 @@ void execute_shell(arg_node *args, char *line)
 		if (file_ds[0] != -1)
 			close(file_ds[0]);
 		error(args);
-		free(line);
 		return;
 	}
 
