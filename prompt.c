@@ -60,8 +60,8 @@ void shell(arg_node *args)
 			free(line);
 			return;
 		}
-		++args->cmd_count;
 		parse_op(args, line);
+		++args->cmd_count;
 	}
 }
 

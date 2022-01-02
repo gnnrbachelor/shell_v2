@@ -23,6 +23,12 @@ list *add_node_end(list **head, const char *str)
 	n_node->next = *temp;
 	*temp = n_node;
 
+	if (!*head)
+	{
+		*head = n_node;
+		return (*head);
+	}
+
 	return (n_node);
 }
 

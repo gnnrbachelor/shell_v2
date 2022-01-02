@@ -44,11 +44,14 @@ int handle_syn_err(char *line)
 	{
 		single_quote = line[i] == '\'' && (i == 0 || line[i - 1] != '\\') ? ~single_quote : single_quote;
 		double_quote = line[i] == '"' && (i == 0 || line[i - 1] != '\\') ? ~double_quote : double_quote;
-		if (!single_quote && !double_quote && step_parse(line + i, &i))
+/*		if (!single_quote && !double_quote && step_parse(line + i, &i))
 			return (1);
+*/
 	}
 	return (0);
 }
+
+/**
 
 int step_parse(char *s, size_t *i)
 {
@@ -88,6 +91,8 @@ int step_parse(char *s, size_t *i)
 	}
 	return (stat);
 }
+
+*/
 
 void print_syn_err(int *stat, char *err, size_t *i, int j)
 {
