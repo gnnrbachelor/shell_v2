@@ -103,6 +103,8 @@ void handle_redirect(arg_node *args, char *line, int *file_ds);
 char quote_check(char * line, size_t i, char *q);
 int handle_syn_err(char *line);
 int step_parse(char *s, size_t *i);
+int comment_check(char *line, size_t i);
+int is_digit(char n);
 
 
 

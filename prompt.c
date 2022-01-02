@@ -97,7 +97,7 @@ void execute_shell(arg_node *args, char *line)
 	free_it_all(args, 'L');
 	if (file_ds[0] != -2)
 	{
-		if (dup2(file_ds[1], 1) == -1)
+		if (dup2(file_ds[1], file_ds[2]) == -1)
 			error(args);
 		close(file_ds[0]);
 	}

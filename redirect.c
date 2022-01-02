@@ -22,21 +22,35 @@ void handle_redirect(arg_node *args, char *line, int *file_ds)
 		{
 			if (line[i] == '>')
 			{
+				if (i != 0 && is_digit(line[i - 1]))
+				{
+					file_ds[2] = line[i - 1] - '0';
+					line[i - 1] = '\0';
+				}
 				line[i++] = '\0';
 				if (line[i] == '>')
-				{
-					i++;
-					flags |= O_APPEND;
-				}
+					++i, flags |= O_APPEND;
 				file = strtok(line + i, " \n");
 				file_ds[0] = open(file, flags, 0664);
-				file_ds[1] = dup(STDOUT_FILENO);
+				file_ds[1] = dup(file_ds[2]);
 				break;
 
 			}
 		}
 	}
 }
+
+
+
+
+
+int is_digit(char n)
+{
+	return (n >='0' && n <= '9' ? 1 : 0);
+}
+
+
+
 
 /**
  * quote_check - Parses for single quote

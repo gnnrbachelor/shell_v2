@@ -98,7 +98,3 @@ void print_syn_err(int *stat, char *err, size_t *i, int j)
 }
 
 
-
-
-
-
