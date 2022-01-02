@@ -22,7 +22,7 @@ void error(arg_node *args)
 	}
 	else if (errno == EACCES)
 	{
-		perror(NULL);
+		perror("cannot create file");
 		args->exit_status = 126;
 	}
 	else if (errno == ENOENT)
