@@ -12,7 +12,7 @@ void handle_redirect(arg_node *args, char *line, int *file_ds)
 {
 	char q = 0;
 	size_t i;
-	int flags = O_RDWR | O_CREAT;
+	int flags = O_RDWR | O_CREAT | O_TRUNC;
 	char *file;
 
 	(void) args;
@@ -29,9 +29,9 @@ void handle_redirect(arg_node *args, char *line, int *file_ds)
 				}
 				line[i++] = '\0';
 				if (line[i] == '>')
-					++i, flags |= O_APPEND;
+					++i, flags = (flags & ~O_TRUNC) | O_APPEND;
 				file = strtok(line + i, " \t\n");
-				file_ds[0] = open(file, flags, 0664);
+				file_ds[0] = open(file, flags, 0666);
 				file_ds[1] = dup(file_ds[2]);
 				break;
 
