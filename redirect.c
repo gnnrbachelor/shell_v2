@@ -36,6 +36,15 @@ void handle_redirect(arg_node *args, char *line, int *file_ds)
 				break;
 
 			}
+			if (line[i] == '<')
+			{
+				line[i++] = '\0';
+				file = strtok(line + i, " \n");
+                                file_ds[0] = open(file, flags, 0664);
+				file_ds[2] = STDIN_FILENO;
+                                file_ds[1] = dup(file_ds[2]);
+				break;
+			}
 		}
 	}
 }
