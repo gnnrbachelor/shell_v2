@@ -101,12 +101,17 @@ void parse_op(arg_node *args, char *line);
 void execute_shell(arg_node *args, char *line);
 int _clear(arg_node *args);
 void print_syn_err(int *stat, char *err, size_t *i, int j);
-void handle_redirect(arg_node *args, char *line, int *file_ds);
+int handle_redirect(arg_node *args, char *line, int *file_ds);
 char quote_check(char * line, size_t i, char *q);
 int handle_syn_err(char *line);
 int step_parse(char *s, size_t *i);
 int comment_check(char *line, size_t i);
 int is_digit(char n);
+int redirect_stdout(arg_node *args, char *line, size_t i, int *file_ds);
+int handle_redirect_errors(arg_node *args, int *file_ds, int flags, char *file, int is_valid, int which_redirect);
+int redirect_stdin(arg_node *args, char *line, size_t i, int *file_ds);
+void re_redirect(arg_node *args, int *file_ds);
+
 
 
 

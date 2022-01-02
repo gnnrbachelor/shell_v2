@@ -85,19 +85,11 @@ void shell(arg_node *args)
 void execute_shell(arg_node *args, char *line)
 {
 	int file_ds[3] = {-2, -2, STDOUT_FILENO};
+	int res;
 
-	handle_redirect(args, line, file_ds);
-/*	if (file_ds[0] != -2 && file_ds[1] != -2 && (file_ds[0] == -1 || file_ds[1] == -1 || dup2(file_ds[0], file_ds[2]) == -1)) */
-	if (file_ds[0] != 2)
-	{
-		dup2(file_ds[0], file_ds[2]);
-
-	/*	if (file_ds[0] != -1)
-			close(file_ds[0]);
-		error(args);
+	res = handle_redirect(args, line, file_ds);
+	if (res == -1)
 		return;
-		*/
-	}
 
 	args->token_array = tokenize(line);
 	if (!args->token_array)
@@ -105,14 +97,8 @@ void execute_shell(arg_node *args, char *line)
 	if (builtins(args))
 		make_proc(args);
 	free_it_all(args, 'L');
-	if (file_ds[0] != -2)
-	{
-	/*	if (dup2(file_ds[1], file_ds[2]) == -1)
-			error(args);
-		close(file_ds[0]); */
-		dup2(file_ds[1], file_ds[2]);
-		close(file_ds[0]);
-	}
+	if (res == 1)
+		re_redirect(args, file_ds);
 }
 
 
