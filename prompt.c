@@ -97,7 +97,7 @@ void execute_shell(arg_node *args, char *line)
 
 	args->token_array = tokenize(line);
 	if (!args->token_array)
-		exit(EXIT_FAILURE);
+		return;
 	if (builtins(args) == 2)
 		make_proc(args);
 	free_it_all(args, 'L');
