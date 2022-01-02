@@ -33,7 +33,7 @@ void error(arg_node *args)
 	else if (errno == ENV_ERROR)
 	{
 		fprintf(stderr, "%s: invalid argument(s)\n", *args->token_array);
-		args->exit_status = 127;
+		args->exit_status = 2;
 	}
 	else
 		perror(NULL);
