@@ -9,6 +9,8 @@
 int builtins(arg_node *args)
 {
 	size_t i;
+	size_t stat;
+
 	built_ins func_arr[] = {
 		{"cd", changedir},
 		{"env", print_env},
@@ -21,8 +23,13 @@ int builtins(arg_node *args)
 
 	for (i = 0; func_arr[i].bi; ++i)
 		if (!_strcmp(*args->token_array, func_arr[i].bi))
-			return (func_arr[i].f(args));
-	return (2);
+		{
+			stat = func_arr[i].f(args);
+			if (!stat)
+				args->exit_status = 0;
+			return (0);
+		}
+	return (1);
 }
 
 /**
@@ -57,14 +64,16 @@ int changedir(arg_node *args)
 	if (parse_cd_tok(args) == -1)
 	{
 		errno = CD_ERROR;
-		perror("called in changedir");
+		error(args);
+		free(cur);
+		return (1);
 	}
 	next = getcwd(next, 0);
 	set_env_var(&(args->env), "OLDPWD", cur);
 	set_env_var(&(args->env), "PWD", next);
 	free(next);
 	free(cur);
-	return (1);
+	return (0);
 }
 
 
