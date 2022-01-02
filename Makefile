@@ -15,11 +15,11 @@ $(NAME): $(OBJ)
 clean:
 	rm -f *.o $(NAME)
 
-run: all
-	@./$(NAME)
 
-check:
-	$(LINTER) *.c *.h
+oclean:
+	$(RM) $(OBJ)
 
-memcheck: all
-	valgrind ./$(NAME)
+fclean: clean oclean
+
+re: oclean all
+

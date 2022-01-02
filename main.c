@@ -12,9 +12,11 @@ int main(int ac, char *av[])
 
 	arg_node args;
 
-	init_arg_node(&args, ac, av);
-	shell(&args);
-	free_it_all(&args, '\0');
+	if (!init_arg_node(&args, ac, av))
+	{
+		shell(&args);
+		free_it_all(&args, '\0');
+	}
 	return (args.exit_status);
 
 }

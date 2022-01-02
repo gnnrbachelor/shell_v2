@@ -58,6 +58,7 @@ typedef struct arg_node
 	list *env;
 	int exit_status;
 	size_t cmd_count;
+	char *error;
 } arg_node;
 
 /**
@@ -75,7 +76,7 @@ typedef struct built_ins
 
 ssize_t wordcount(char *line);
 char **tokenize(char *line);
-void init_arg_node(arg_node *args, const int ac, char **av);
+int init_arg_node(arg_node *args, const int ac, char **av);
 void prompt(arg_node *args);
 void shell(arg_node *args);
 int builtins(arg_node *args);

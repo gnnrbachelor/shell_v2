@@ -8,15 +8,22 @@
  * Return: Void
  */
 
-void init_arg_node(arg_node *args, const int ac, char **av)
+int init_arg_node(arg_node *args, const int ac, char **av)
 {
 	args->ac = ac;
 	args->av = av;
 	args->exitchr = "";
 	args->token_array = NULL;
 	args->env = arr_to_link();
-	args->exit_status = 0;
+	if (!args->env)
+	{
+		args->exit_status = EXIT_FAILURE;
+		return (EXIT_FAILURE);
+	}
+	args->exit_status = EXIT_SUCCESS;
 	args->cmd_count = 1;
+	args->error = "";
+	return (EXIT_SUCCESS);
 }
 
 /**
