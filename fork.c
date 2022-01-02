@@ -110,6 +110,8 @@ char *tokenize_path(char *str)
 	for (new = cur; *(path + new) && *(path + new) != ':'; new++)
 		;
 	dir = malloc(sizeof(char) * (new - cur + 1));
+	if (!dir)
+		return (NULL);
 	_strncpy(dir, path + cur, new - cur);
 	dir[new - cur] = '\0';
 	cur = *(path + new) ? ++new : new;

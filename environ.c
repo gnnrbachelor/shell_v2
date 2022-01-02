@@ -125,6 +125,8 @@ int set_env_var(list **env, char *name, char *value)
 	else if (!*env)
 		*env = temp;
 	temp->str = _strdup(buf);
+	if (!temp->str)
+		return (1);
 	return (0);
 }
 
