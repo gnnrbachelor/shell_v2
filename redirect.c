@@ -30,7 +30,7 @@ void handle_redirect(arg_node *args, char *line, int *file_ds)
 				line[i++] = '\0';
 				if (line[i] == '>')
 					++i, flags |= O_APPEND;
-				file = strtok(line + i, " \n");
+				file = strtok(line + i, " \t\n");
 				file_ds[0] = open(file, flags, 0664);
 				file_ds[1] = dup(file_ds[2]);
 				break;
