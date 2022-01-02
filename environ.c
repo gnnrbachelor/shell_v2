@@ -38,7 +38,8 @@ int _unsetenv(arg_node *args)
 
 	if (!args->token_array[1])
 	{
-		perror("called in _unsetenv");
+		errno = ENV_ERROR;
+		error(args);
 		return (1);
 	}
 	temp = args->env;
@@ -69,13 +70,18 @@ int _unsetenv(arg_node *args)
 
 int _setenv(arg_node *args)
 {
+	int stat = 0;
+
 	if (args->token_array[1] && args->token_array[2])
+		stat = set_env_var(&(args->env), args->token_array[1], args->token_array[2]);
+	else
 	{
-		set_env_var(&(args->env), args->token_array[1], args->token_array[2]);
-		return (0);
+		stat = 1;
+		errno = ENV_ERROR;
+		error(args);
 	}
-	perror("setenv gone wrong");
-	return (1);
+
+	return (stat);
 }
 
 /**
@@ -87,7 +93,7 @@ int _setenv(arg_node *args)
  *
  */
 
-void set_env_var(list **env, char *name, char *value)
+int set_env_var(list **env, char *name, char *value)
 {
 	list *temp = NULL;
 	list *prev = NULL;
@@ -110,6 +116,8 @@ void set_env_var(list **env, char *name, char *value)
 	else
 	{
 		temp = malloc(sizeof(*temp));
+		if (!temp)
+			return (1);
 		temp->next = NULL;
 	}
 	if (prev)
@@ -117,6 +125,7 @@ void set_env_var(list **env, char *name, char *value)
 	else if (!*env)
 		*env = temp;
 	temp->str = _strdup(buf);
+	return (0);
 }
 
 /**

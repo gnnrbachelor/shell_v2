@@ -20,6 +20,7 @@
 
 #define EXIT_ERROR 100
 #define CD_ERROR 101
+#define ENV_ERROR 102
 
 extern char **environ;
 
@@ -85,7 +86,7 @@ int print_env(arg_node *args);
 void free_it_all(arg_node *args, char mode);
 list *arr_to_link(void);
 int parse_cd_tok(arg_node *args);
-void set_env_var(list **env, char *name, char *value);
+int set_env_var(list **env, char *name, char *value);
 char *_getenv(char *command, arg_node *args);
 int _unsetenv(arg_node *args);
 int _setenv(arg_node *args);

@@ -30,6 +30,11 @@ void error(arg_node *args)
 		fprintf(stderr, "%s: not found\n", *args->token_array);
 		args->exit_status = 127;
 	}
+	else if (errno == ENV_ERROR)
+	{
+		fprintf(stderr, "%s: invalid argument(s)\n", *args->token_array);
+		args->exit_status = 127;
+	}
 	else
 		perror(NULL);
 }
