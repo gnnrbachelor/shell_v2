@@ -60,11 +60,39 @@ int redirect_stdin(arg_node *args, char *line, size_t i, int *file_ds)
 	int flags = O_RDONLY;
 	char *file;
 
-	file_ds[2] = STDOUT_FILENO;
 	line[i++] = '\0';
-
-	file = strtok(line + i, " \t\n");
+	if (line[i] == '<')
+		file = heredoc(args, line, i);
+	else
+		file = strtok(line + i, " \t\n");
 	return (handle_redirect_errors(args, file_ds, flags, file, 0, 0));
+}
+
+char *heredoc(arg_node *args, char *line, size_t i)
+{
+	char buffer[BUFSIZ] = {0};
+	int file_ds;
+	static char *file = "/tmp/tmp_file.txt";
+	char *end_char = strtok(line + i + 1, " \t\n");
+	size_t rd_size;
+
+	file_ds = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+	if (file_ds == -1)
+	{
+		error(args);
+		return (NULL);
+	}
+	while (1)
+	{
+		write(STDOUT_FILENO, "> ", 2);
+		rd_size = read(STDIN_FILENO, &buffer, BUFSIZ);
+		if (!_strncmp(buffer, end_char, _strlen(end_char)))
+			break;
+		write(file_ds, buffer, rd_size);
+		_memset(buffer, 0, BUFSIZ);
+	}
+	close(file_ds);
+	return (file);
 }
 
 

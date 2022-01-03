@@ -111,6 +111,7 @@ int redirect_stdout(arg_node *args, char *line, size_t i, int *file_ds);
 int handle_redirect_errors(arg_node *args, int *file_ds, int flags, char *file, int is_valid, int which_redirect);
 int redirect_stdin(arg_node *args, char *line, size_t i, int *file_ds);
 void re_redirect(arg_node *args, int *file_ds);
+char *heredoc(arg_node *args, char *line, size_t i);
 
 
 
@@ -128,5 +129,7 @@ int _atoi(char *s);
 int _strcmp(char *s1, char *s2);
 int _strncmp(const char *s1, const char *s2, size_t n);
 char *_strncpy(char *dest, char *src, int n);
+char *_memset(char *s, char b, unsigned int n);
+
 
 #endif
