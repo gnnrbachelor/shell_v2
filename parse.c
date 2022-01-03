@@ -18,7 +18,6 @@ void parse_op(arg_node *args, char *line)
 
 
 	for (i = 0; line[i]; ++i)
-	{
 		if (quote_check(line, i, &q))
 		{
 			if (comment_check(line, i))
@@ -27,14 +26,6 @@ void parse_op(arg_node *args, char *line)
 			    && i != 0 && line[i - 1] == '\0')
 			{
 				op = line[i];
-				pos = i + 1;
-			}
-			else if (line[i] == '|')
-			{
-				line[i] = '\0';
-				op != 'p'
-					? pipe_wr(args, line + pos, file_d, &op)
-					: handle_pipe_chain(args, line + pos, file_d, &op, 1);
 				pos = i + 1;
 			}
 			else if (line[i] == ';' ||
@@ -46,8 +37,15 @@ void parse_op(arg_node *args, char *line)
 					execute_shell(args, line + pos);
 				pos = i + 1;
 			}
+			else if (line[i] == '|')
+			{
+				line[i] = '\0';
+				op != 'p'
+					? pipe_wr(args, line + pos, file_d, &op)
+					: handle_pipe_chain(args, line + pos, file_d, &op, 1);
+				pos = i + 1;
+			}
 		}
-	}
 	if (op == 'p')
 		handle_pipe_chain(args, line + pos, file_d, &op, 0);
 	else if (check_op(args, op))

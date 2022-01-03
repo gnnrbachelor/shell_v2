@@ -22,7 +22,7 @@ void handle_pipe_chain(arg_node *args, char *line, int *file_d, char *op, int p_
 	file_d[0] = dup(STDIN_FILENO);
 	dup2(args->pipe_fd[0], STDIN_FILENO);
 
-	if (p_stat)
+	if (p_stat == 1)
 	{
 		close(args->pipe_fd[0]);
 		pipe_wr(args, line, file_d, op);
