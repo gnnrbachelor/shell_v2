@@ -84,7 +84,7 @@ void shell(arg_node *args)
 
 void execute_shell(arg_node *args, char *line)
 {
-	int file_ds[3] = {-2, -2, STDOUT_FILENO};
+	int file_ds[3] = {0};
 	int res;
 
 	res = handle_redirect(args, line, file_ds);

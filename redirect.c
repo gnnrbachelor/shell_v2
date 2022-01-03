@@ -18,9 +18,15 @@ int handle_redirect(arg_node *args, char *line, int *file_ds)
 		if (quote_check(line, i, &q))
 		{
 			if (line[i] == '>')
+			{
+				file_ds[2] = STDOUT_FILENO;
 				return (redirect_stdout(args, line, i, file_ds));
+			}
 			if (line[i] == '<')
+			{
+				file_ds[2] = STDIN_FILENO;
 				return (redirect_stdin(args, line, i, file_ds));
+			}
 		}
 
 	}
@@ -42,7 +48,7 @@ int redirect_stdout(arg_node *args, char *line, size_t i, int *file_ds)
 
 	line[i++] = '\0';
 	if (line[i] == '>')
-		++i, flags |= O_APPEND & ~O_TRUNC;
+		++i, flags = (flags & ~O_TRUNC) | O_APPEND;
 	file = strtok(line + i, " \t\n");
 
 	return (handle_redirect_errors(args, file_ds, flags, file, is_valid, 1));
@@ -70,7 +76,6 @@ int is_digit(char n)
 
 
 
-
 /**
  * quote_check - Parses for single quote
  * @line: Line
@@ -92,7 +97,13 @@ char quote_check(char * line, size_t i, char *q)
 
 int handle_redirect_errors(arg_node *args, int *file_ds, int flags, char *file, int is_valid, int which_redirect)
 {
-
+	if (!file)
+	{
+		fprintf(stderr, "%s: %lu: ", *args->av, args->cmd_count);
+		fprintf(stderr, "Syntax error: newline unexpected\n");
+		args->exit_status = 2;
+		return (-1);
+	}
 	file_ds[0] = open(file, flags, 0666);
 	file_ds[1] = dup(file_ds[2]);
 	if (file_ds[0] == -1 || (file_ds[1] == -1 && !is_valid))
@@ -118,8 +129,8 @@ int handle_redirect_errors(arg_node *args, int *file_ds, int flags, char *file, 
 
 void re_redirect(arg_node *args, int *file_ds)
 {
-	if (dup2(file_ds[1], file_ds[2]) == -1)
-		error(args);
+	(void) args;
+	dup2(file_ds[1], file_ds[2]);
 	close(file_ds[0]);
 }
 
