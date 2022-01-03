@@ -86,7 +86,7 @@ char *heredoc(arg_node *args, char *line, size_t i)
 	{
 		write(STDOUT_FILENO, "> ", 2);
 		rd_size = read(STDIN_FILENO, &buffer, BUFSIZ);
-		if (!_strncmp(buffer, end_char, _strlen(end_char)))
+		if (!_strncmp(buffer, end_char, _strlen(end_char)) && _strlen(end_char) == _strlen(buffer) - 1)
 			break;
 		write(file_ds, buffer, rd_size);
 		_memset(buffer, 0, BUFSIZ);
