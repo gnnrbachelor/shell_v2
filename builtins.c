@@ -27,6 +27,10 @@ int builtins(arg_node *args)
 			stat = func_arr[i].f(args);
 			if (!stat)
 				args->exit_status = 0;
+			if (args->p_stat == 1)
+				close(args->pipe_fd[1]);
+			else if (args->p_stat == 0)
+				close(args->pipe_fd[0]);
 			return (0);
 		}
 	return (1);
