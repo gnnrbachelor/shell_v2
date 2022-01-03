@@ -23,6 +23,10 @@ int init_arg_node(arg_node *args, const int ac, char **av)
 	args->exit_status = EXIT_SUCCESS;
 	args->cmd_count = 1;
 	args->error = "";
+	args->cmdcnt = 1;
+	args->pipe_fd[0] = 0;
+	args->pipe_fd[1] = 0;
+	args->p_stat = -1;
 	return (EXIT_SUCCESS);
 }
 

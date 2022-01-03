@@ -59,6 +59,9 @@ typedef struct arg_node
 	int exit_status;
 	size_t cmd_count;
 	char *error;
+	size_t cmdcnt;
+	int pipe_fd[2];
+	int p_stat;
 } arg_node;
 
 /**
@@ -112,10 +115,9 @@ int handle_redirect_errors(arg_node *args, int *file_ds, int flags, char *file, 
 int redirect_stdin(arg_node *args, char *line, size_t i, int *file_ds);
 void re_redirect(arg_node *args, int *file_ds);
 char *heredoc(arg_node *args, char *line, size_t i);
-
-
-
-
+int handle_pipe(arg_node *args, char *line);
+char **link_to_arr(list *head);
+size_t list_size(const list *head);
 
 
 

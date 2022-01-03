@@ -1,5 +1,28 @@
 #include "shell.h"
 
+char **link_to_arr(list *head)
+{
+	int i = 0;
+	int len = list_size(head);
+	char **arr = NULL;
+
+	if (!head)
+		return (NULL);
+	arr = malloc(sizeof(char *) * (len + 1));
+	if (!arr)
+		return (NULL);
+
+	while (head)
+	{
+		arr[i] = head->str;
+		head = head->next;
+		++i;
+	}
+	arr[i] = NULL;
+	return (arr);
+}
+
+
 /**
  * add_node_end - Adds node at end of ist
  * @head: Head

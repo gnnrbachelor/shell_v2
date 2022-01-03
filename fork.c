@@ -12,20 +12,32 @@ void _fork(arg_node *args, char *exec)
 {
 	pid_t pid = 0;
 	int wstatus;
+	char **env_array = NULL;
 
 	pid = fork();
 	if (pid < 0)
 		error(args);
 	else if (pid == 0)
 	{
-		if (execve(exec, args->token_array, NULL))
+		env_array = link_to_arr(args->env);
+		if (args->pipe_fd[0] != 0)
 		{
+			close(args->pipe_fd[0]);
+			close(args->pipe_fd[1]);
+		}
+		if (execve(exec, args->token_array, env_array))
+		{
+			free(env_array);
 			error(args);
 			exit(errno);
 		}
 	}
 	else
 	{
+		if (args->p_stat == 1)
+			close(args->pipe_fd[1]);
+		else if (args->p_stat == 0)
+			close(args->pipe_fd[0]);
 		waitpid(-1, &wstatus, 0);
 		if (WIFEXITED(wstatus))
 			args->exit_status = WEXITSTATUS(wstatus);
