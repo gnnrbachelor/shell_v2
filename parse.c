@@ -29,68 +29,29 @@ void parse_op(arg_node *args, char *line)
 				op = line[i];
 				pos = i + 1;
 			}
-			else if (line[i] == '|' && op != 'p')
-			{
-				op = 'p';
-				args->p_stat = 1;
-				line[i] = '\0';
-				if (pipe(args->pipe_fd) == -1)
-				{
-					perror("pipe");
-					exit(EXIT_FAILURE);
-				}
-				file_d[1] = dup(STDOUT_FILENO);
-				dup2(args->pipe_fd[1], STDOUT_FILENO);
-				execute_shell(args, line + pos);
-				dup2(file_d[1], STDOUT_FILENO);
-				close(file_d[1]);
-				pos = i + 1;
-			}
-			else if (line[i] == '|' && op == 'p')
+			else if (line[i] == '|')
 			{
 				line[i] = '\0';
-				args->p_stat = 1;
-				file_d[0] = dup(STDIN_FILENO);
-				dup2(args->pipe_fd[0], STDIN_FILENO);
-				close(args->pipe_fd[0]);
-				if (pipe(args->pipe_fd) == -1)
-				{
-					perror("pipe");
-					exit(EXIT_FAILURE);
-				}
-				file_d[1] = dup(STDOUT_FILENO);
-				dup2(args->pipe_fd[1], STDOUT_FILENO);
-				execute_shell(args, line + pos);
-				dup2(file_d[1], STDOUT_FILENO);
+				op != 'p'
+					? pipe_wr(args, line + pos, file_d, &op)
+					: handle_pipe_chain(args, line + pos, file_d, &op, 1);
 				pos = i + 1;
-				dup2(file_d[0], STDIN_FILENO);
-				close(file_d[0]);
-				close(file_d[1]);
 			}
 			else if (line[i] == ';' ||
 				!_strncmp(line + i, "&&", 2) ||
 				!_strncmp(line + i, "||", 2))
 			{
 				line[i] = '\0';
-				if (op == ';' || (op == '&' && !args->exit_status)
-					|| (op == '|' && args->exit_status))
-						execute_shell(args, line + pos);
+				if (check_op(args, op))
+					execute_shell(args, line + pos);
 				pos = i + 1;
 			}
 		}
 	}
 	if (op == 'p')
-	{
-		args->p_stat = 0;
-		file_d[0] = dup(STDIN_FILENO);
-		dup2(args->pipe_fd[0], STDIN_FILENO);
+		handle_pipe_chain(args, line + pos, file_d, &op, 0);
+	else if (check_op(args, op))
 		execute_shell(args, line + pos);
-		dup2(file_d[0], STDIN_FILENO);
-		close(file_d[0]);
-	}
-	else if (op == ';' || (op == '&' && !args->exit_status)
-		|| (op == '|' && args->exit_status))
-			execute_shell(args, line + pos);
 }
 
 
@@ -103,4 +64,10 @@ int comment_check(char *line, size_t i)
 		return (1);
 	}
 	return (0);
+}
+
+int check_op(arg_node *args, char op)
+{
+	return (op == ';' || (op == '&' && !args->exit_status)
+		|| (op == '|' && args->exit_status));
 }

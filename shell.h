@@ -59,7 +59,6 @@ typedef struct arg_node
 	int exit_status;
 	size_t cmd_count;
 	char *error;
-	size_t cmdcnt;
 	int pipe_fd[2];
 	int p_stat;
 } arg_node;
@@ -118,6 +117,11 @@ char *heredoc(arg_node *args, char *line, size_t i);
 int handle_pipe(arg_node *args, char *line);
 char **link_to_arr(list *head);
 size_t list_size(const list *head);
+void handle_pipe_chain(arg_node *args, char *line, int *file_d, char *op, int p_stat);
+void pipe_wr(arg_node *args, char *line, int *file_d, char *op);
+int check_op(arg_node *args, char op);
+
+
 
 
 
