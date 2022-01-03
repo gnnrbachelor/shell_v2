@@ -70,11 +70,12 @@ int redirect_stdin(arg_node *args, char *line, size_t i, int *file_ds)
 
 char *heredoc(arg_node *args, char *line, size_t i)
 {
-	char buffer[BUFSIZ] = {0};
+	char *buffer = NULL;
 	int file_ds;
 	static char *file = "/tmp/tmp_file.txt";
 	char *end_char = strtok(line + i + 1, " \t\n");
-	size_t rd_size;
+	ssize_t rd_size;
+	size_t s = 0;
 
 	file_ds = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	if (file_ds == -1)
@@ -84,13 +85,14 @@ char *heredoc(arg_node *args, char *line, size_t i)
 	}
 	while (1)
 	{
-		write(STDOUT_FILENO, "> ", 2);
-		rd_size = read(STDIN_FILENO, &buffer, BUFSIZ);
-		if (!_strncmp(buffer, end_char, _strlen(end_char)) && _strlen(end_char) == _strlen(buffer) - 1)
+		prompt(args, ">");
+		rd_size = getline(&buffer, &s, stdin);
+		if ((rd_size == -1 || rd_size == 0) ||
+		    (!_strncmp(buffer, end_char, _strlen(end_char)) 			&& _strlen(end_char) == _strlen(buffer) - 1))
 			break;
 		write(file_ds, buffer, rd_size);
-		_memset(buffer, 0, BUFSIZ);
 	}
+	free(buffer);
 	close(file_ds);
 	return (file);
 }
@@ -160,6 +162,7 @@ void re_redirect(arg_node *args, int *file_ds)
 	(void) args;
 	dup2(file_ds[1], file_ds[2]);
 	close(file_ds[0]);
+	unlink("/tmp/tmp_file.txt");
 }
 
 

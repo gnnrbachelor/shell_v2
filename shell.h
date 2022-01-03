@@ -77,7 +77,7 @@ typedef struct built_ins
 ssize_t wordcount(char *line);
 char **tokenize(char *line);
 int init_arg_node(arg_node *args, const int ac, char **av);
-void prompt(arg_node *args);
+void prompt(arg_node *args, char *p);
 void shell(arg_node *args);
 int builtins(arg_node *args);
 int changedir(arg_node *args);

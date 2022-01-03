@@ -32,13 +32,13 @@ int init_arg_node(arg_node *args, const int ac, char **av)
  * Return: Void
  */
 
-void prompt(arg_node *args)
+void prompt(arg_node *args, char *p)
 {
 	(void)args;
 
 	if (isatty(STDIN_FILENO))
 	{
-		printf("hsh$ ");
+		fprintf(stderr, "%s ", p);
 		args->exitchr = "\n";
 	}
 }
@@ -58,7 +58,7 @@ void shell(arg_node *args)
 
 	while (1)
 	{
-		prompt(args);
+		prompt(args, "$");
 		char_read = getline(&line, &n, stdin);
 
 		if (char_read == EOF || handle_syn_err(line))
