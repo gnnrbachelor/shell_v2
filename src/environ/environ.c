@@ -1,4 +1,4 @@
-#include "shell.h"
+#include "../headers/shell.h"
 
 /**
  * _getenv - Gets environment

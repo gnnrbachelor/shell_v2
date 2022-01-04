@@ -1,4 +1,4 @@
-#include "shell.h"
+#include "../headers/shell.h"
 
 
 void pipe_wr(arg_node *args, char *line, int *file_d, char *op)

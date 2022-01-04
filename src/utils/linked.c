@@ -1,4 +1,4 @@
-#include "shell.h"
+#include "../headers/shell.h"
 
 char **link_to_arr(list *head)
 {
