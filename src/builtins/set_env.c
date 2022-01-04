@@ -1,6 +1,24 @@
 #include "../headers/shell.h"
 
 /**
+ * print_env - Prints environment
+ * @args: Args
+ * Return: 0 if success
+ */
+
+int print_env(arg_node *args)
+{
+	list *temp = args->env;
+
+	while (temp)
+	{
+		printf("%s\n", temp->str);
+		temp = temp->next;
+	}
+	return (0);
+}
+
+/**
  * _getenv - Gets environment
  * @command: environment variable
  * @args: Argument node
@@ -23,42 +41,6 @@ char *_getenv(char *command, arg_node *args)
 		head = head->next;
 	}
 	return (NULL);
-}
-
-/**
- * _unsetenv - Unsets environment var
- * @args: Args
- * Return: 1 if success
- */
-
-int _unsetenv(arg_node *args)
-{
-	list *temp = NULL;
-	list *prev = NULL;
-
-	if (!args->token_array[1])
-	{
-		errno = ENV_ERROR;
-		error(args);
-		return (1);
-	}
-	temp = args->env;
-	while (temp)
-	{
-		if (find_env_var(NULL, temp, args))
-		{
-			if (prev)
-				prev->next = temp->next;
-			else
-				args->env = temp->next;
-			free(temp->str);
-			free(temp);
-			break;
-		}
-		prev = temp;
-		temp = temp->next;
-	}
-	return (0);
 }
 
 /**
@@ -129,26 +111,4 @@ int set_env_var(list **env, char *name, char *value)
 		return (1);
 	return (0);
 }
-
-/**
- * find_env_var - Finds matching env var
- * @s: String
- * @s2: String2
- * @args: args node
- *
- */
-
-size_t find_env_var(char *s, list *s2, arg_node *args)
-{
-	char *p = NULL;
-	size_t l;
-
-	if (!s)
-		s = args->token_array[1];
-	l = _strlen(s);
-	p = _strchr(s2->str, '=');
-	return ((l == (size_t) (p - s2->str) &&
-			!(_strncmp(s2->str, s, l))));
-}
-
 
