@@ -56,48 +56,6 @@ int handle_syn_err(char *line)
 	return (0);
 }
 
-/**
-
-int step_parse(char *s, size_t *i)
-{
-	static char no_sp = 0;
-	int stat = 0;
-
-	if (s[0] == '|' && s[1] == '|')
-	{
-		if (!no_sp)
-		{
-			s[2] = '\0';
-			print_syn_err(&stat, s, i, 1);
-		}
-		no_sp = 0;
-	}
-	else if (s[0] == '&')
-	{
-		if (!no_sp || s[1] != '&')
-		{
-			s[1] = '\0';
-			print_syn_err(&stat, s, i, 1);
-		}
-		no_sp = 0;
-	}
-	else if (s[0] == ';' || s[0] == '|')
-	{
-		if (!no_sp)
-		{
-			print_syn_err(&stat, s, i, 0);
-			s[1] = '\0';
-		}
-		no_sp = 0;
-	}
-	else if (s[0] != ' ' && s[0] != '\t')
-	{
-		no_sp = 1;
-	}
-	return (stat);
-}
-
-*/
 
 void print_syn_err(int *stat, char *err, size_t *i, int j)
 {

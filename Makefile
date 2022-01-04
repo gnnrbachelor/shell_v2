@@ -12,7 +12,7 @@ $(NAME): $(OBJ)
 .PHONY: clean, run, check, memcheck
 
 clean:
-	rm -f *.o $(NAME)
+	find . -type f -name "*.o" -delete
 
 
 oclean:
