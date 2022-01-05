@@ -89,3 +89,36 @@ int parse_cd_tok(arg_node *args)
 	return (val);
 }
 
+
+/*
+ * tokenize_path - Tokenizes path
+ * @args: Args
+ * Return: pointer to new array
+ */
+
+char *tokenize_path(char *str)
+{
+	static char *path;
+	char *dir = NULL;
+	static size_t cur;
+	size_t new;
+
+	if (str)
+	{
+		cur = 0;
+		path = str;
+	}
+
+	if (!path || !*(path + cur))
+		return (NULL);
+	for (new = cur; *(path + new) && *(path + new) != ':'; new++)
+		;
+	dir = malloc(sizeof(char) * (new - cur + 1));
+	if (!dir)
+		return (NULL);
+	_strncpy(dir, path + cur, new - cur);
+	dir[new - cur] = '\0';
+	cur = *(path + new) ? ++new : new;
+	return (dir);
+}
+

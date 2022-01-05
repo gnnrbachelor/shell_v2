@@ -81,3 +81,17 @@ char *_strncpy(char *dest, char *src, int n)
 		dest[i++] = '\0';
 	return (dest);
 }
+
+/**
+ * is_digit - Determines if digit
+ * @n: int
+ * Return: 1 or 0
+ */
+
+int is_digit(char n)
+{
+	return (n >='0' && n <= '9' ? 1 : 0);
+}
+
+
+
