@@ -47,6 +47,10 @@ typedef struct list
  * @token_array: Token array
  * @env: envir
  * @exit_status: exit status
+ * @cmd_count: Command Count
+ * @error: Error
+ * @pipe_fd: Pipe file desc
+ * @p_stat: Pipe status
  */
 
 typedef struct arg_node

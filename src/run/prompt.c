@@ -32,6 +32,7 @@ int init_arg_node(arg_node *args, const int ac, char **av)
 /**
  * prompt - Prompt
  * @args: args
+ * @p: prompt
  * Return: Void
  */
 

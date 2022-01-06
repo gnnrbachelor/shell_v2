@@ -68,7 +68,7 @@ int redirect_stdout(arg_node *args, char *line, size_t i, int *file_ds)
  * @args: args
  * @line: line
  * @i: index
- * file_ds: file descriptors
+ * @file_ds: file descriptors
  * Return: -1 or 1
  */
 

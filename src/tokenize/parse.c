@@ -2,8 +2,8 @@
 
 /**
  * parse_op - Parses operators
- * @arg_node *args
- * @line
+ * @args:args
+ * @line: line
  * Return: Void
  *
  */

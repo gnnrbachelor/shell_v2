@@ -3,7 +3,7 @@
 /**
  * _unsetenv - Unsets environment var
  * @args: Args
- * Return: 1 if success
+ * Return: 1 or 0
  */
 
 int _unsetenv(arg_node *args)
@@ -42,7 +42,7 @@ int _unsetenv(arg_node *args)
  * @s: String
  * @s2: String2
  * @args: args node
- *
+ * Return: 1 or 0
  */
 
 size_t find_env_var(char *s, list *s2, arg_node *args)

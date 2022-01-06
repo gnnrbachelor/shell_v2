@@ -1,9 +1,9 @@
 #include "../headers/shell.h"
 
 /**
- * clear_screen - Clear Screen
- * @arg_node: Args
- * Return: Void
+ * _clear - Clear Screen
+ * @args: Args
+ * Return: 0
  */
 
 int _clear(arg_node *args)

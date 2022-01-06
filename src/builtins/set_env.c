@@ -67,7 +67,7 @@ int _setenv(arg_node *args)
 }
 
 /**
- * _set_env_var - Sets environment variable
+ * set_env_var - Sets environment variable
  * @env: env
  * @name: name
  * @value: value

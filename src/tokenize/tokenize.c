@@ -90,9 +90,9 @@ int parse_cd_tok(arg_node *args)
 }
 
 
-/*
+/**
  * tokenize_path - Tokenizes path
- * @args: Args
+ * @str: path
  * Return: pointer to new array
  */
 

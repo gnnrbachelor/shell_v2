@@ -4,7 +4,7 @@
  * quote_check - Parses for single quote
  * @line: Line
  * @i: counter
- * @quote: Is quote b
+ * @q: quote
  * Return: 0;
  */
 

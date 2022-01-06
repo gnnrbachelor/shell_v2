@@ -1,7 +1,7 @@
 #include "../headers/shell.h"
 
 /**
- * fork - Forks for execve
+ * _fork - Forks for execve
  * @args: Args
  * @exec: Executable
  * Return: Void

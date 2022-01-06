@@ -23,6 +23,15 @@ int handle_syn_err(char *line)
 	return (0);
 }
 
+/**
+ * print_syn_err - Print syntax error
+ * @stat: stat
+ * @err: error
+ * @i: index
+ * @j: index 2
+ * Return: Void
+ */
+
 
 void print_syn_err(int *stat, char *err, size_t *i, int j)
 {
