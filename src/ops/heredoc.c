@@ -1,6 +1,12 @@
 #include "../headers/shell.h"
 
-
+/**
+ * heredoc - handles heredoc
+ * @args: args
+ * @line: line
+ * @i: index
+ * Return: temp file
+ */
 
 char *heredoc(arg_node *args, char *line, size_t i)
 {
@@ -22,7 +28,8 @@ char *heredoc(arg_node *args, char *line, size_t i)
 		prompt(args, ">");
 		rd_size = getline(&buffer, &s, stdin);
 		if ((rd_size == -1 || rd_size == 0) ||
-		    (!_strncmp(buffer, end_char, _strlen(end_char)) 			&& _strlen(end_char) == _strlen(buffer) - 1))
+		    (!_strncmp(buffer, end_char, _strlen(end_char))
+			&& _strlen(end_char) == _strlen(buffer) - 1))
 			break;
 		write(file_ds, buffer, rd_size);
 	}

@@ -1,5 +1,13 @@
 #include "../headers/shell.h"
 
+/**
+ * pipe_wr - Writes to pipe
+ * @args: args
+ * @line: line
+ * @file_d: file desc
+ * @op: operator
+ * Return: Void
+ */
 
 void pipe_wr(arg_node *args, char *line, int *file_d, char *op)
 {
@@ -17,7 +25,19 @@ void pipe_wr(arg_node *args, char *line, int *file_d, char *op)
 	close(file_d[1]);
 }
 
-void handle_pipe_chain(arg_node *args, char *line, int *file_d, char *op, int p_stat)
+
+/**
+ * handle_pipe_chain - Handles pipe chain
+ * @args: args
+ * @line: line
+ * @file_d: file desc
+ * @op: operator
+ * @p_stat: pipe status
+ * Return: Void
+ */
+
+void handle_pipe_chain(arg_node *args, char *line, int *file_d,
+			 char *op, int p_stat)
 {
 	file_d[0] = dup(STDIN_FILENO);
 	dup2(args->pipe_fd[0], STDIN_FILENO);

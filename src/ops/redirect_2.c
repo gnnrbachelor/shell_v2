@@ -1,7 +1,5 @@
 #include "../headers/shell.h"
 
-
-
 /**
  * quote_check - Parses for single quote
  * @line: Line
@@ -10,7 +8,7 @@
  * Return: 0;
  */
 
-char quote_check(char * line, size_t i, char *q)
+char quote_check(char *line, size_t i, char *q)
 {
 	*q = line[i] == '\'' && (i == 0 || line[i - 1] != '\\') ?
 		*q ^ 1 << 0 : *q;
@@ -21,13 +19,25 @@ char quote_check(char * line, size_t i, char *q)
 	return (*q == 0);
 }
 
+/**
+ * handle_redirect_errors - Handles redirect errors
+ * @args: args
+ * @file_ds: file desc
+ * @flags: flags
+ * @file: File
+ * @is_valid: Valid?
+ * @which_redirect: Which redirect
+ * Return: 1 or -1
+ */
 
-
-int handle_redirect_errors(arg_node *args, int *file_ds, int flags, char *file, int is_valid, int which_redirect)
+int handle_redirect_errors(arg_node *args, int *file_ds,
+				int flags, char *file, int is_valid,
+				int which_redirect)
 {
 	if (!file)
 	{
-		fprintf(stderr, "%s: %lu: ", *args->av, args->cmd_count);
+		fprintf(stderr, "%s: %lu: ", *args->av,
+			 args->cmd_count);
 		fprintf(stderr, "Syntax error: newline unexpected\n");
 		args->exit_status = 2;
 		return (-1);
@@ -55,6 +65,12 @@ int handle_redirect_errors(arg_node *args, int *file_ds, int flags, char *file, 
 	return (1);
 }
 
+
+/**
+ * re_redirect - reverts redirect
+ * @args: args
+ * @file_ds: file desc
+ */
 
 
 void re_redirect(arg_node *args, int *file_ds)

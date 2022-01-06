@@ -33,6 +33,14 @@ int handle_redirect(arg_node *args, char *line, int *file_ds)
 	return (0);
 }
 
+/**
+ * redirect_stdout - Redirect to stdout
+ * @args: args
+ * @line: Line
+ * @i: index
+ * @file_ds: file desc
+ * Return: -1 or 1
+ */
 
 int redirect_stdout(arg_node *args, char *line, size_t i, int *file_ds)
 {
@@ -54,6 +62,15 @@ int redirect_stdout(arg_node *args, char *line, size_t i, int *file_ds)
 	return (handle_redirect_errors(args, file_ds, flags, file, is_valid, 1));
 
 }
+
+/**
+ * redirect_stdin - Redirects to stdin
+ * @args: args
+ * @line: line
+ * @i: index
+ * file_ds: file descriptors
+ * Return: -1 or 1
+ */
 
 int redirect_stdin(arg_node *args, char *line, size_t i, int *file_ds)
 {

@@ -90,7 +90,7 @@ char *_strncpy(char *dest, char *src, int n)
 
 int is_digit(char n)
 {
-	return (n >='0' && n <= '9' ? 1 : 0);
+	return (n >= '0' && n <= '9' ? 1 : 0);
 }
 
 

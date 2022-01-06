@@ -1,5 +1,13 @@
 #include "../headers/shell.h"
 
+/**
+ * _memset - memset
+ * @s: s
+ * @b: b
+ * @n: n
+ * Return: pointer to buffer
+ */
+
 char *_memset(char *s, char b, unsigned int n)
 {
 	unsigned int i;

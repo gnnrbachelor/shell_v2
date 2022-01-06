@@ -1,5 +1,11 @@
 #include "../headers/shell.h"
 
+/**
+ * link_to_arr - Converts from linked list to arr
+ * @head: Head
+ * Return: pointer to array
+ */
+
 char **link_to_arr(list *head)
 {
 	int i = 0;

@@ -53,6 +53,12 @@ void parse_op(arg_node *args, char *line)
 }
 
 
+/**
+ * comment_check - Checks for comment
+ * @line: Line
+ * @i: index
+ * Return: 1 or 0
+ */
 
 int comment_check(char *line, size_t i)
 {
@@ -64,8 +70,22 @@ int comment_check(char *line, size_t i)
 	return (0);
 }
 
+/**
+ * check_op - Checks for operator
+ * @args: Args
+ * @op: Operator
+ * Return: 1 or 0
+ */
+
 int check_op(arg_node *args, char op)
 {
 	return (op == ';' || (op == '&' && !args->exit_status)
 		|| (op == '|' && args->exit_status));
 }
+
+
+
+
+
+
+
