@@ -18,7 +18,7 @@ void shell(arg_node *args)
 		prompt(args, "$");
 		char_read = getline(&line, &n, stdin);
 
-		if (char_read == EOF || handle_syn_err(line))
+		if (char_read == EOF/* || handle_syn_err(line)*/)
 		{
 			printf("%s", args->exitchr);
 			free(line);
