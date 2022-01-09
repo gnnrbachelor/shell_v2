@@ -80,11 +80,8 @@ typedef struct built_ins
 } built_ins;
 
 
-ssize_t wordcount(char *line);
-char **tokenize(char *line);
-int init_arg_node(arg_node *args, const int ac, char **av);
-void prompt(arg_node *args, char *p);
-void shell(arg_node *args);
+
+/* builtins */
 int builtins(arg_node *args);
 int changedir(arg_node *args);
 ssize_t count_cmds(char *line);
@@ -98,21 +95,14 @@ char *_getenv(char *command, arg_node *args);
 int _unsetenv(arg_node *args);
 int _setenv(arg_node *args);
 size_t find_env_var(char *s, list *s2, arg_node *args);
-void _fork(arg_node *args, char *exec);
-void make_proc(arg_node *args);
-char *get_path(arg_node *args);
-char *tokenize_path(char *str);
-void error(arg_node *args);
-void parse_op(arg_node *args, char *line);
-void execute_shell(arg_node *args, char *line);
 int _clear(arg_node *args);
-void print_syn_err(int *stat, char *err, size_t *i, int j);
-int handle_redirect(arg_node *args, char *line, int *file_ds);
-char quote_check(char *line, size_t i, char *q);
-int handle_syn_err(char *line);
-int step_parse(char *s, size_t *i);
-int comment_check(char *line, size_t i);
-int is_digit(char n);
+
+
+/* errors */
+void error(arg_node *args);
+
+
+/* ops */
 int redirect_stdout(arg_node *args, char *line, size_t i, int *file_ds);
 int handle_redirect_errors(arg_node *args, int *file_ds,
 				int flags, char *file, int is_valid,
@@ -121,19 +111,36 @@ int redirect_stdin(arg_node *args, char *line, size_t i, int *file_ds);
 void re_redirect(arg_node *args, int *file_ds);
 char *heredoc(arg_node *args, char *line, size_t i);
 int handle_pipe(arg_node *args, char *line);
-char **link_to_arr(list *head);
-size_t list_size(const list *head);
 void handle_pipe_chain(arg_node *args, char *line,
 			int *file_d, char *op, int p_stat);
 void pipe_wr(arg_node *args, char *line, int *file_d, char *op);
 int check_op(arg_node *args, char op);
+int handle_redirect(arg_node *args, char *line, int *file_ds);
+char quote_check(char *line, size_t i, char *q);
+int comment_check(char *line, size_t i);
+int is_digit(char n);
 
 
+/* run */
+int init_arg_node(arg_node *args, const int ac, char **av);
+void prompt(arg_node *args, char *p);
+void shell(arg_node *args);
+void _fork(arg_node *args, char *exec);
+void make_proc(arg_node *args);
+void execute_shell(arg_node *args, char *line);
 
 
+/* tokenize */
+char **tokenize(char *line);
+char *get_path(arg_node *args);
+char *tokenize_path(char *str);
+void parse_op(arg_node *args, char *line);
 
-/* Strings */
 
+/* utilities */
+char **link_to_arr(list *head);
+size_t list_size(const list *head);
+ssize_t wordcount(char *line);
 size_t _strlen(char *str);
 char *_strdup(const char *str);
 char *_strcat(char *dest, char *src);
