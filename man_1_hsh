@@ -29,6 +29,10 @@ This version provides the following builtin commands:
 
 .B exit - Exits the shell. Returns zero if successful, non-zero for errors.
 .B env - Prints a list of environment variables.
+.B cd - Changes directory
+.B clear - Clears screen.
+.B setenv - Sets environment variable.
+.B unsetenv - Unset environment variable.
 
 .SH SEE ALSO
 .I strtok(3), getline(3), getenv(3).
