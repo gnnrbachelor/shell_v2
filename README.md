@@ -1,4 +1,4 @@
-# Shell-v2
+# Shell v2
 Shell version 2 - A simple implementation of a UNIX shell using C.
 ## Download and Run Instructions
 
@@ -23,3 +23,6 @@ $ ./hsh
 | `setenv`           | Set an environment variable                 |
 | `unsetenv`         | Unset an environment variable               |
 | `cd`               | Change directories                          |
+
+## Author
+Gunnar Bachelor
